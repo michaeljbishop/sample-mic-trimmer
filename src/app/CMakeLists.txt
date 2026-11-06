@@ -38,9 +38,18 @@ set_target_properties(SampleMicTrimmer PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist.in
 )
 
-# App icon (generated from artwork once; the .icns is checked in).
-set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/icons/AppIcon.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-target_sources(SampleMicTrimmer PRIVATE icons/AppIcon.icns)
+# App icon: Assets.car (macOS 26 and later, CFBundleIconName) and the .icns for older systems, both generated from
+# icons/SmtIcon.icon once and checked in (see icons/README.md).
+foreach(f Assets.car SmtIcon.icns)
+    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/icons/${f} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    target_sources(SampleMicTrimmer PRIVATE icons/${f})
+endforeach()
+
+# Seal the bundle (ad-hoc) after every build: with only the linker's signature macOS 26+ shows the new-style icon in a
+# grey plate ("icon jail"). The installed bundle is signed by macdeployqt.
+add_custom_command(TARGET SampleMicTrimmer POST_BUILD
+    COMMAND codesign --force --deep -s - $<TARGET_BUNDLE_DIR:SampleMicTrimmer>
+)
 
 # Built-in profiles as real folders in Contents/Resources/Profiles. Source properties (not a post-build
 # copy) so the files are part of the bundle that `install(TARGETS ... BUNDLE)` installs.
