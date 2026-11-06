@@ -127,8 +127,13 @@ target_link_libraries(tst_mainwindow PRIVATE corelib Qt6::Widgets Qt6::Network Q
 add_test(NAME tst_mainwindow COMMAND tst_mainwindow)
 set_tests_properties(tst_mainwindow PROPERTIES ENVIRONMENT QT_QPA_PLATFORM=offscreen)
 
-# Every test runs with its own app data dir, so a plain `ctest` never touches the user's cache or settings.
 get_property(all_tests DIRECTORY PROPERTY TESTS)
+# The shared QtCore precompiled header (see the top-level CMakeLists.txt).
+foreach(t ${all_tests})
+    target_precompile_headers(${t} REUSE_FROM smt_pch_core)
+endforeach()
+
+# Every test runs with its own app data dir, so a plain `ctest` never touches the user's cache or settings.
 foreach(t ${all_tests})
     set_property(TEST ${t} APPEND PROPERTY ENVIRONMENT "SMT_APP_DATA_DIR=${CMAKE_CURRENT_BINARY_DIR}/appdata-${t}")
 endforeach()

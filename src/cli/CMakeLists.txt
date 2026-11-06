@@ -8,3 +8,4 @@ if(WIN32) # UNVERIFIED: next to the GUI executable, so the Qt DLLs deployed for 
     include(GNUInstallDirs)
     install(TARGETS cli RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
+target_precompile_headers(cli REUSE_FROM smt_pch_core)

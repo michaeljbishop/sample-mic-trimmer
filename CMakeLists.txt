@@ -15,9 +15,15 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Network Test)
 qt_standard_project_setup()
 enable_testing()
 
-# Precompiled headers: the most used QtCore headers, for corelib and the app only (the compile time is there; a PCH
-# per tiny test executable cost more than it saved).
-set(SMT_PCH <QString> <QStringList> <QList> <QHash> <QSet> <QObject> <QDir> <QFile> <QFileInfo> <QJsonObject>)
+# Precompiled headers, two sets. Core: the most used QtCore headers, built once by an otherwise empty library and
+# reused (REUSE_FROM) by corelib, the command line tool and every test. Gui: the same plus QWidget, the app's own.
+set(SMT_PCH_CORE <QObject> <QString> <QStringList> <QList> <QHash> <QSet> <QDir> <QFile> <QFileInfo> <QJsonObject>)
+set(SMT_PCH_GUI ${SMT_PCH_CORE} <QWidget>)
+file(WRITE ${CMAKE_BINARY_DIR}/smt_pch_core.cpp "// owner of the shared QtCore precompiled header\n")
+add_library(smt_pch_core STATIC ${CMAKE_BINARY_DIR}/smt_pch_core.cpp)
+set_target_properties(smt_pch_core PROPERTIES AUTOMOC OFF AUTOUIC OFF AUTORCC OFF)
+target_link_libraries(smt_pch_core PRIVATE Qt6::Core)
+target_precompile_headers(smt_pch_core PRIVATE ${SMT_PCH_CORE})
 
 add_subdirectory(src/app)
 add_subdirectory(src/cli)

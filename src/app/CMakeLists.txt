@@ -19,7 +19,7 @@ qt_add_executable(SampleMicTrimmer
 )
 
 
-target_precompile_headers(SampleMicTrimmer PRIVATE ${SMT_PCH})
+target_precompile_headers(SampleMicTrimmer PRIVATE ${SMT_PCH_GUI})
 target_include_directories(SampleMicTrimmer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(SampleMicTrimmer PRIVATE corelib Qt6::Widgets Qt6::Network)

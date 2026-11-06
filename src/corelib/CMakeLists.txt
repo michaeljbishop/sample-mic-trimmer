@@ -49,5 +49,5 @@ qt_add_resources(corelib "profiles" PREFIX "/profiles" BASE "${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/profiles/EricWhitacre.smtprofile/Contents/Resources/spitfire.json
 )
 
-# Precompiled headers (SMT_PCH is set in the top-level CMakeLists.txt).
-target_precompile_headers(corelib PRIVATE ${SMT_PCH})
+# Precompiled headers: the shared QtCore set (see the top-level CMakeLists.txt).
+target_precompile_headers(corelib REUSE_FROM smt_pch_core)
