@@ -1,0 +1,5 @@
+{
+  "folderPattern": "^Spitfire Audio - BBC Symphony Orchestra",
+  "samplesDir": "Samples",
+  "sampleFile": "_(?<mic>[A-Za-z]{2}\\d{2})(?:_\\d+)?\\.spitfire$"
+}

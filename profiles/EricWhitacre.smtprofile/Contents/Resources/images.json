@@ -1,0 +1,16 @@
+{
+  "main": {
+    "sources": [
+      "cache:762646866156051825",
+      "cache:762646877082424537",
+      "cache:-3978629468329901306",
+      "url:https://www.spitfireaudio.com/cdn/shop/files/EricWhitacreChoirSquare.png?width=500"
+    ],
+    "credit": "https://www.spitfireaudio.com/eric-whitacre-choir"
+  },
+  "logo": {
+    "sources": [
+      "library:NKS/PAResources/image/Spitfire Audio/*/MST_Logo.png"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "name": "BBC Symphony Orchestra",
+      "keys": {
+        "config": ["Config"],
+        "patches": ["Patches"],
+        "presets": ["Presets"],
+        "samples": ["Samples"]
+      }
+    }
+  ]
+}

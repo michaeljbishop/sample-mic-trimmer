@@ -1,0 +1,16 @@
+{
+  "main": {
+    "sources": [
+      "cache:-5946911695875460174",
+      "cache:-5946911696707943383",
+      "cache:-2722765241741408607",
+      "url:https://www.spitfireaudio.com/cdn/shop/files/smc0201_square_press.jpg?width=500"
+    ],
+    "credit": "https://www.spitfireaudio.com/bbc-symphony-orchestra-professional"
+  },
+  "logo": {
+    "sources": [
+      "library:NKS/PAResources/image/Spitfire Audio/*/MST_Logo.png"
+    ]
+  }
+}

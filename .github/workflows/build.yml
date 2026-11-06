@@ -1,0 +1,82 @@
+# Build and test on macOS and Windows. The Windows job is the ONLY real test the Windows support gets: it was written
+# without a Windows machine, so a red Windows job is expected at first and is the information we want.
+# This workflow only builds and tests; it publishes and uploads nothing.
+name: build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+
+      # Pinned to an exact tag (v4.3.0 and its arch value win64_msvc2022_64 are confirmed to exist). Windows uses Qt 6.10.3
+      # because aqtinstall could not fetch the Qt 6.11.x metadata for Windows from download.qt.io (first CI run, 2026-11-06);
+      # bump it deliberately once that works.
+      - uses: jurplel/install-qt-action@v4.3.0
+        with:
+          version: ${{ runner.os == 'Windows' && '6.10.3' || '6.11.0' }}
+          arch: ${{ runner.os == 'Windows' && 'win64_msvc2022_64' || '' }}
+          cache: true
+
+      # Ninja is preinstalled on both runner images; Windows needs the MSVC environment for it .
+      - uses: ilammy/msvc-dev-cmd@v1.13.0
+        if: runner.os == 'Windows'
+
+      - name: Configure
+        shell: bash
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
+
+      - name: Build
+        shell: bash
+        # -k 0: keep going after the first error so one run lists every failure (Windows is not testable locally)
+        run: cmake --build build -- -k 0
+
+      - name: Test
+        shell: bash
+        run: |
+          export SMT_APP_DATA_DIR="$RUNNER_TEMP/smt-data"
+          mkdir -p "$SMT_APP_DATA_DIR"
+          export QT_QPA_PLATFORM=offscreen
+          ctest --test-dir build --output-on-failure --timeout 180
+
+      # QtTest's output does not reach ctest's log on Windows, so run each failed test again, writing its report to a file.
+      - name: Details of failing tests
+        if: failure()
+        shell: bash
+        run: |
+          export SMT_APP_DATA_DIR="$RUNNER_TEMP/smt-data-details"
+          mkdir -p "$SMT_APP_DATA_DIR"
+          export QT_QPA_PLATFORM=offscreen
+          for t in $(cut -d: -f2 build/Testing/Temporary/LastTestsFailed.log 2>/dev/null | tr -d '\r'); do
+            echo "::group::$t"
+            exe=$(find build -type f \( -name "$t.exe" -o -name "$t" \) | head -1)
+            echo "exe: $exe"
+            # Two reports at once: -v2 text on stdout (every test function as it starts, so a hang shows which one) and a
+            # JUnit file whose times show the slow functions. A function over 120 s is aborted.
+            QTEST_FUNCTION_TIMEOUT=120000 timeout 400 "$exe" -v2 -o "-,txt" -o "$RUNNER_TEMP/$t.xml,junitxml" > "$RUNNER_TEMP/$t.stdout" 2>&1 || echo "exit code $?"
+            grep -h -A6 -E "^FAIL!|^QFATAL|^Totals" "$RUNNER_TEMP/$t.stdout" | head -60 || true
+            tail -n 12 "$RUNNER_TEMP/$t.stdout" || true
+            echo "failures (from the JUnit file):"
+            python - "$RUNNER_TEMP/$t.xml" <<'PY' || true
+          import sys
+          import xml.etree.ElementTree as ET
+          for case in ET.parse(sys.argv[1]).getroot().iter("testcase"):
+              for f in list(case.findall("failure")) + list(case.findall("error")):
+                  print(case.get("name"), "|", (f.get("message") or "")[:400])
+                  print((f.text or "")[:400])
+          PY
+            echo "slowest functions:"
+            grep -o 'name="[^"]*" time="[0-9.]*"' "$RUNNER_TEMP/$t.xml" 2>/dev/null | sort -t'"' -k4 -n -r | head -8 || true
+            echo "::endgroup::"
+          done

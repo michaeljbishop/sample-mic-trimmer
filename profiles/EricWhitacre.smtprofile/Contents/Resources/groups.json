@@ -1,0 +1,29 @@
+{
+  "groups": [
+    {
+      "key": "sopranos",
+      "name": "Sopranos",
+      "match": "SOPRANOS"
+    },
+    {
+      "key": "altos",
+      "name": "Altos",
+      "match": "ALTOS"
+    },
+    {
+      "key": "tenors",
+      "name": "Tenors",
+      "match": "TENORS"
+    },
+    {
+      "key": "bass",
+      "name": "Bass",
+      "match": "BASS"
+    },
+    {
+      "key": "tutti",
+      "name": "Tutti",
+      "match": "TUTTI"
+    }
+  ]
+}

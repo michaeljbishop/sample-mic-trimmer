@@ -1,0 +1,28 @@
+{
+  "groups": [
+    {
+      "key": "brass",
+      "name": "Brass",
+      "match": "_Brass",
+      "by": "dir"
+    },
+    {
+      "key": "percussion",
+      "name": "Percussion",
+      "match": "_Percussion",
+      "by": "dir"
+    },
+    {
+      "key": "strings",
+      "name": "Strings",
+      "match": "_Strings",
+      "by": "dir"
+    },
+    {
+      "key": "woodwinds",
+      "name": "Woodwinds",
+      "match": "_Woodwinds",
+      "by": "dir"
+    }
+  ]
+}

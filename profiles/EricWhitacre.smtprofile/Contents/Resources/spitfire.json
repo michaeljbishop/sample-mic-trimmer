@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "name": "Eric Whitacre Choir",
+      "keys": {
+        "patches": ["Eric Whitacre Choir", "Patches", "Patches/Eric Whitacre Choir"],
+        "presets": ["Eric Whitacre Choir", "Presets", "Presets/Eric Whitacre Choir"],
+        "samples": ["Samples"]
+      }
+    },
+    {
+      "name": "Eric Whitacre Choir Evo Grid",
+      "keys": {
+        "patches": ["Eric Whitacre Choir Evo Grid", "Patches/Eric Whitacre Choir Evo Grid"],
+        "presets": ["Eric Whitacre Choir Evo Grid", "Presets/Eric Whitacre Choir Evo Grid"],
+        "samples": ["Samples"]
+      }
+    },
+    {
+      "name": "Eric Whitacre Choir Samples",
+      "keys": {
+        "samples": ["Samples"]
+      }
+    }
+  ]
+}

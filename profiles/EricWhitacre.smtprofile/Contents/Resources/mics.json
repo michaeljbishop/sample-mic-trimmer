@@ -1,0 +1,96 @@
+{
+  "mics": [
+    {
+      "token": "cl01",
+      "name": "Close",
+      "family": "close"
+    },
+    {
+      "token": "tr01",
+      "name": "Tree",
+      "family": "tree"
+    },
+    {
+      "token": "am01",
+      "name": "Ambient",
+      "family": "ambient"
+    },
+    {
+      "token": "ou01",
+      "name": "Outriggers",
+      "family": "outriggers"
+    },
+    {
+      "token": "mi01",
+      "name": "Mid",
+      "family": "mid"
+    },
+    {
+      "token": "ga01",
+      "name": "Gallery",
+      "family": "gallery"
+    },
+    {
+      "token": "st01",
+      "name": "Big",
+      "family": "big"
+    },
+    {
+      "token": "st02",
+      "name": "Medium",
+      "family": "medium"
+    },
+    {
+      "token": "st03",
+      "name": "Small",
+      "family": "small"
+    }
+  ],
+  "families": [
+    {
+      "key": "close",
+      "name": "Close",
+      "tab": "Core"
+    },
+    {
+      "key": "tree",
+      "name": "Tree",
+      "tab": "Core"
+    },
+    {
+      "key": "ambient",
+      "name": "Ambient",
+      "tab": "Core"
+    },
+    {
+      "key": "outriggers",
+      "name": "Outriggers",
+      "tab": "Core"
+    },
+    {
+      "key": "mid",
+      "name": "Mid",
+      "tab": "Auxiliary"
+    },
+    {
+      "key": "gallery",
+      "name": "Gallery",
+      "tab": "Auxiliary"
+    },
+    {
+      "key": "big",
+      "name": "Big",
+      "tab": "Stereo"
+    },
+    {
+      "key": "medium",
+      "name": "Medium",
+      "tab": "Stereo"
+    },
+    {
+      "key": "small",
+      "name": "Small",
+      "tab": "Stereo"
+    }
+  ]
+}

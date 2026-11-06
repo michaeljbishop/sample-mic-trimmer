@@ -1,0 +1,207 @@
+{
+  "mics": [
+    {
+      "token": "mi01",
+      "name": "Full Mix 1",
+      "family": "mix1",
+      "locked": true
+    },
+    {
+      "token": "mi02",
+      "name": "Full Mix 2",
+      "family": "mix2"
+    },
+    {
+      "token": "cl01",
+      "name": "Close",
+      "family": "close"
+    },
+    {
+      "token": "cw01",
+      "name": "Close Wide",
+      "family": "closewide"
+    },
+    {
+      "token": "tr01",
+      "name": "Tree",
+      "family": "tree"
+    },
+    {
+      "token": "am01",
+      "name": "Ambient",
+      "family": "ambient"
+    },
+    {
+      "token": "ou01",
+      "name": "Outriggers",
+      "family": "outriggers"
+    },
+    {
+      "token": "mo01",
+      "name": "Mono",
+      "family": "mono"
+    },
+    {
+      "token": "st01",
+      "name": "Section Stereo",
+      "family": "sectionstereo"
+    },
+    {
+      "token": "sf01",
+      "name": "Spill Full",
+      "family": "spillfull"
+    },
+    {
+      "token": "sb01",
+      "name": "Spill Brass",
+      "family": "spillbrass"
+    },
+    {
+      "token": "sp01",
+      "name": "Spill Percussion",
+      "family": "spillpercussion"
+    },
+    {
+      "token": "ss01",
+      "name": "Spill Strings",
+      "family": "spillstrings"
+    },
+    {
+      "token": "sw01",
+      "name": "Spill Wind",
+      "family": "spillwind"
+    },
+    {
+      "token": "le01",
+      "name": "Leader",
+      "family": "leader"
+    },
+    {
+      "token": "md01",
+      "name": "Mids",
+      "family": "mids"
+    },
+    {
+      "token": "si01",
+      "name": "Sides",
+      "family": "sides"
+    },
+    {
+      "token": "ba01",
+      "name": "Balcony",
+      "family": "balcony"
+    },
+    {
+      "token": "af01",
+      "name": "Atmos Front",
+      "family": "atmosfront"
+    },
+    {
+      "token": "ar01",
+      "name": "Atmos Rear",
+      "family": "atmosrear"
+    }
+  ],
+  "families": [
+    {
+      "key": "mix1",
+      "name": "Full Mix 1",
+      "tab": "Mixes"
+    },
+    {
+      "key": "mix2",
+      "name": "Full Mix 2",
+      "tab": "Mixes"
+    },
+    {
+      "key": "close",
+      "name": "Close",
+      "tab": "CTAO"
+    },
+    {
+      "key": "closewide",
+      "name": "Close Wide",
+      "tab": "CTAO"
+    },
+    {
+      "key": "tree",
+      "name": "Tree",
+      "tab": "CTAO"
+    },
+    {
+      "key": "ambient",
+      "name": "Ambient",
+      "tab": "CTAO"
+    },
+    {
+      "key": "outriggers",
+      "name": "Outriggers",
+      "tab": "CTAO"
+    },
+    {
+      "key": "mono",
+      "name": "Mono",
+      "tab": "Stereo/Mono"
+    },
+    {
+      "key": "sectionstereo",
+      "name": "Section Stereo",
+      "tab": "Stereo/Mono"
+    },
+    {
+      "key": "spillfull",
+      "name": "Spill Full",
+      "tab": "Spills"
+    },
+    {
+      "key": "spillbrass",
+      "name": "Spill Brass",
+      "tab": "Spills"
+    },
+    {
+      "key": "spillpercussion",
+      "name": "Spill Percussion",
+      "tab": "Spills"
+    },
+    {
+      "key": "spillstrings",
+      "name": "Spill Strings",
+      "tab": "Spills"
+    },
+    {
+      "key": "spillwind",
+      "name": "Spill Wind",
+      "tab": "Spills"
+    },
+    {
+      "key": "leader",
+      "name": "Leader",
+      "tab": "Other"
+    },
+    {
+      "key": "mids",
+      "name": "Mids",
+      "tab": "Other"
+    },
+    {
+      "key": "sides",
+      "name": "Sides",
+      "tab": "Other"
+    },
+    {
+      "key": "balcony",
+      "name": "Balcony",
+      "tab": "Other"
+    },
+    {
+      "key": "atmosfront",
+      "name": "Atmos Front",
+      "tab": "Atmos"
+    },
+    {
+      "key": "atmosrear",
+      "name": "Atmos Rear",
+      "tab": "Atmos"
+    }
+  ]
+}
