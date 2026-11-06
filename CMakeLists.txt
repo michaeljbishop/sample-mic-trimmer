@@ -15,6 +15,10 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Network Test)
 qt_standard_project_setup()
 enable_testing()
 
+# Precompiled headers: the most used QtCore headers, for corelib and the app only (the compile time is there; a PCH
+# per tiny test executable cost more than it saved).
+set(SMT_PCH <QString> <QStringList> <QList> <QHash> <QSet> <QObject> <QDir> <QFile> <QFileInfo> <QJsonObject>)
+
 add_subdirectory(src/app)
 add_subdirectory(src/cli)
 add_subdirectory(src/corelib)
