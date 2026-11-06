@@ -6,3 +6,5 @@
 
 `Assets.car` is what macOS 26 and later read (`CFBundleIconName`); without it the icon is shown on a grey plate.
 `SmtIcon.icns` is for older macOS (`CFBundleIconFile`). `AppIcon.ico` is the Windows icon.
+
+The artwork the layers were cut from is `../assets/originals/Storage Upgrade Arrow.png` (AI-generated, commercial use allowed).
