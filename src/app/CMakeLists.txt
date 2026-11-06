@@ -37,6 +37,10 @@ set_target_properties(SampleMicTrimmer PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist.in
 )
 
+# App icon (generated from artwork once; the .icns is checked in).
+set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/icons/AppIcon.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+target_sources(SampleMicTrimmer PRIVATE icons/AppIcon.icns)
+
 # Built-in profiles as real folders in Contents/Resources/Profiles. Source properties (not a post-build
 # copy) so the files are part of the bundle that `install(TARGETS ... BUNDLE)` installs.
 file(GLOB_RECURSE profile_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/profiles/*.smtprofile/*)
@@ -55,6 +59,8 @@ set_target_properties(SampleMicTrimmer PROPERTIES
     OUTPUT_NAME "SampleMicTrimmer"
     WIN32_EXECUTABLE ON
 )
+# The .ico is embedded as the executable's icon through a resource script.
+target_sources(SampleMicTrimmer PRIVATE icons/appicon.rc)
 add_custom_command(TARGET SampleMicTrimmer POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/profiles $<TARGET_FILE_DIR:SampleMicTrimmer>/Profiles
 )
