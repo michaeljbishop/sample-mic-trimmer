@@ -1,0 +1,68 @@
+# Builds the Release packages for macOS and Windows when a tag v* is pushed and attaches them to a DRAFT pre-release.
+# Not signed or notarized; the Windows package has only passed CI, never run on a real Windows machine.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: jurplel/install-qt-action@v4.3.0
+        with:
+          version: ${{ runner.os == 'Windows' && '6.10.3' || '6.11.0' }}
+          arch: ${{ runner.os == 'Windows' && 'win64_msvc2022_64' || '' }}
+          cache: true
+
+      - uses: ilammy/msvc-dev-cmd@v1.13.0
+        if: runner.os == 'Windows'
+
+      - name: Build and install
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+          cmake --install build --prefix "$RUNNER_TEMP/stage" || [ "$RUNNER_OS" = macOS ]
+
+      - name: Package
+        shell: bash
+        run: |
+          name="SampleMicTrimmer-${GITHUB_REF_NAME}-$(echo "$RUNNER_OS" | tr A-Z a-z)"
+          if [ "$RUNNER_OS" = macOS ]; then
+            ditto -c -k --keepParent "$RUNNER_TEMP/stage/Sample Mic Trimmer.app" "$name.zip"
+          else
+            (cd "$RUNNER_TEMP/stage" && 7z a -tzip "$GITHUB_WORKSPACE/$name.zip" .)
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ runner.os }}
+          path: SampleMicTrimmer-*.zip
+
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          merge-multiple: true
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --draft --prerelease \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Unsigned builds. macOS: right-click > Open the first time. Windows: experimental, only CI-tested." \
+            SampleMicTrimmer-*.zip
